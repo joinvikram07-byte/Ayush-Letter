@@ -1,339 +1,63 @@
-:root {
-  --blue: #1f4fd9;
-  --green: #1fb553;
-  --text-main: #111827;
-  --text-muted: #6b7280;
-  --bg: #ffffff;
-  --bg-soft: #f6f7fb;
-  --border-soft: #e5e7eb;
-  --radius-lg: 18px;
-  --shadow-soft: 0 16px 40px rgba(15, 23, 42, 0.08);
+/* Simple responsive styling inspired by the screenshot */
+:root{
+  --max-width:1100px;
+  --accent: #1f478b;
+  --green: #1aa34a;
+  --muted: #666;
+  --card: #fff;
+  --bg: #fafafa;
+  --shadow: 0 6px 18px rgba(18,18,18,0.06);
+  --radius: 8px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#111;line-height:1.45}
+.container{max-width:var(--max-width);margin:0 auto;padding:28px}
+
+.hero{background:#fff;padding:30px 0}
+.hero-inner{display:flex;gap:30px;align-items:flex-start}
+.left{flex:1}
+.form-card{width:420px;background:var(--card);padding:20px;border-radius:12px;box-shadow:var(--shadow);border:1px solid #f0f0f0}
+h1{font-size:40px;margin:0 0 12px 0;line-height:1.02}
+.lead{color:var(--muted);margin-bottom:18px;font-size:16px}
+.icons-row{display:flex;gap:18px;margin-top:18px}
+.icon{display:flex;flex-direction:column;align-items:center;width:110px}
+.icon-img{font-size:24px;background:#eef6ff;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.muted{color:var(--muted);font-weight:500}
+
+.lead-form label{display:block;margin-bottom:12px;font-size:14px}
+.lead-form input[type="text"],
+.lead-form input[type="tel"],
+.lead-form select,
+.lead-form textarea{
+  width:100%;padding:10px;border:1px solid #e3e7ec;border-radius:6px;font-size:14px
 }
+.row{display:flex;gap:10px}
+.row .small{flex:1}
 
-body {
-  margin: 0;
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background: var(--bg-soft);
-  color: var(--text-main);
-}
+.btns{display:flex;gap:12px;margin-top:8px;align-items:center}
+.btn{display:inline-block;padding:14px 20px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;font-weight:600}
+.btn.primary{background:var(--accent);color:#fff;flex:1}
+.btn.whatsapp{background:var(--green);color:#fff;padding:12px 18px}
+.btn.whatsapp.large{padding:14px 36px;border-radius:12px}
+.msg{margin-top:12px;color:green;font-weight:600}
 
-.page {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 36px 18px 60px;
-}
+.content{padding:40px 0}
+.services h2, .process h2, .documents h2{font-size:28px;text-align:center;margin-bottom:18px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border-radius:10px;padding:18px;border:1px solid #f0f0f0;box-shadow:var(--shadow)}
+.step{background:#fff;border-radius:8px;padding:16px;border:1px solid #f0f0f0;text-align:center}
+.steps{display:flex;gap:20px;justify-content:space-between;margin-top:16px}
+.documents .doc-list{display:flex;gap:20px;justify-content:space-between;margin-top:12px}
+.trusted{text-align:center;padding:30px 0}
 
-/* HERO */
+.site-footer{background:#fff;padding:18px;border-top:1px solid #eee;text-align:center;margin-top:20px}
 
-.hero {
-  background: var(--bg);
-  border-radius: 24px;
-  box-shadow: var(--shadow-soft);
-  padding: 40px 40px 32px;
-}
-
-.hero-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  gap: 40px;
-  align-items: flex-start;
-}
-
-.hero-left h1 {
-  font-size: 38px;
-  line-height: 1.08;
-  margin: 0 0 14px;
-  font-weight: 800;
-}
-
-.hero-sub {
-  margin: 0 0 24px;
-  color: var(--text-muted);
-  font-size: 15px;
-  max-width: 420px;
-}
-
-/* hero features */
-
-.hero-features {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.feature {
-  text-align: center;
-  font-size: 11px;
-}
-
-.feature-icon {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto 8px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #eff3ff;
-  font-size: 20px;
-}
-
-.feature-title {
-  font-weight: 500;
-  line-height: 1.3;
-}
-
-/* form */
-
-.hero-right {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.form-card {
-  width: 100%;
-  max-width: 340px;
-  background: #ffffff;
-  border-radius: 18px;
-  border: 1px solid var(--border-soft);
-  padding: 22px 20px 20px;
-  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
-}
-
-.form-heading {
-  margin: 0 0 16px;
-  font-size: 15px;
-  line-height: 1.35;
-  font-weight: 600;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-input {
-  height: 42px;
-  padding: 10px 12px;
-  border-radius: 9px;
-  border: 1px solid var(--border-soft);
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-input:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
-}
-
-/* buttons */
-
-.btn {
-  border: none;
-  border-radius: 9px;
-  padding: 11px 16px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.07s ease, box-shadow 0.07s ease, background 0.15s ease;
-}
-
-.btn-primary {
-  background: var(--blue);
-  color: #fff;
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
-}
-
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 22px rgba(37, 99, 235, 0.3);
-}
-
-.btn-whatsapp {
-  background: var(--green);
-  color: #fff;
-  box-shadow: 0 10px 22px rgba(22, 163, 74, 0.25);
-}
-
-.btn-whatsapp:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(22, 163, 74, 0.32);
-}
-
-/* generic sections */
-
-.section {
-  margin-top: 40px;
-  padding: 10px 0 0;
-  text-align: center;
-}
-
-.section h2 {
-  margin: 0 0 22px;
-  font-size: 26px;
-  font-weight: 700;
-}
-
-/* cards - services */
-
-.cards-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.card {
-  text-align: left;
-  background: #fff;
-  border-radius: 18px;
-  border: 1px solid var(--border-soft);
-  padding: 20px 18px 22px;
-  box-shadow: var(--shadow-soft);
-}
-
-.card h3 {
-  margin: 0 0 10px;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.card p {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--text-muted);
-}
-
-/* steps */
-
-.steps-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 30px;
-  text-align: left;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.step h4 {
-  margin: 0 0 8px;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.step p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-/* documents */
-
-.docs-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 30px;
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.doc-title {
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.doc p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.check {
-  color: var(--green);
-  margin-right: 6px;
-}
-
-/* bottom */
-
-.section-bottom {
-  margin-top: 32px;
-}
-
-.section-bottom h2 {
-  font-size: 22px;
-  margin-bottom: 18px;
-}
-
-.bottom-cta {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 980px) {
-  .hero {
-    padding: 26px 20px 24px;
-  }
-
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 26px;
-  }
-
-  .hero-left h1 {
-    font-size: 30px;
-  }
-
-  .hero-features {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 16px;
-  }
-
-  .hero-right {
-    justify-content: flex-start;
-  }
-
-  .cards-row,
-  .steps-row,
-  .docs-row {
-    grid-template-columns: 1fr;
-  }
-
-  .card,
-  .step,
-  .doc {
-    text-align: left;
-  }
-
-  .bottom-cta {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-  }
-}
-
-@media (max-width: 600px) {
-  .page {
-    padding: 20px 14px 40px;
-  }
-
-  .hero-left h1 {
-    font-size: 26px;
-  }
+@media (max-width:980px){
+  .hero-inner{flex-direction:column}
+  .form-card{width:100%}
+  .cards{grid-template-columns:1fr}
+  .steps{flex-direction:column}
+  .documents .doc-list{flex-direction:column}
 }
