@@ -1,4 +1,6 @@
-// script.js — cleaned & ready to paste
+// script.js — cleaned, updated with mobile menu
+
+// Set footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
 (() => {
@@ -18,14 +20,14 @@ document.getElementById('year').textContent = new Date().getFullYear();
     msgEl.textContent = text;
   }
 
-  // Helper: open whatsapp chat in new tab with optional prefilled text
+  // Helper: open whatsapp chat (not used by default)
   function openWhatsApp(prefillText = '') {
     const text = prefillText ? encodeURIComponent(prefillText) : '';
     const waUrl = `https://wa.me/${SUPPORT_WA}${text ? '?text=' + text : ''}`;
     window.open(waUrl, '_blank');
   }
 
-  // Actual submit handler
+  // Submit handler
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     showMessage('', '');
@@ -54,13 +56,13 @@ document.getElementById('year').textContent = new Date().getFullYear();
       timestamp: new Date().toISOString()
     };
 
-    // UI: disable button while sending
+    // UI changes while sending
     submitBtn.disabled = true;
     const originalBtnText = submitBtn.textContent;
     submitBtn.textContent = 'Sending...';
     showMessage('Sending...', '');
 
-    // Try normal CORS request first (so we can read JSON response)
+    // Try normal CORS first
     try {
       const resp = await fetch(WEBAPP_URL, {
         method: 'POST',
@@ -70,9 +72,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
         cache: 'no-store'
       });
 
-      // If server returned a non-JSON or blocked by CORS, resp.ok may be false or json() may throw
       if (!resp.ok) {
-        // Try to parse JSON error if available; else throw to go to fallback
         let text = await resp.text().catch(() => '');
         try {
           const j = text ? JSON.parse(text) : null;
@@ -83,26 +83,20 @@ document.getElementById('year').textContent = new Date().getFullYear();
         throw new Error('Non-OK response from server');
       }
 
-      // parse JSON response
       const json = await resp.json().catch(() => null);
 
       if (json && (json.status === 'success' || json.result === 'success')) {
         showMessage('Thank you! We have received your inquiry. Our team will contact you shortly.', 'green');
         form.reset();
-        // Optionally open WhatsApp after success (comment out if not required)
-        // openWhatsApp(`Hello, I would like help with an AYUSH Letter. Name: ${fullName}; City: ${city}; Hospital: ${hospital}`);
       } else {
-        // server responded but did not explicitly confirm success
         console.warn('Server response (no success flag):', json);
         showMessage('Submission received but server did not confirm success. Check sheet & email.', 'orange');
         form.reset();
       }
     } catch (err) {
-      // Most common reason: CORS/preflight blocked the request — attempt no-cors fallback
       console.warn('Primary POST failed, attempting no-cors fallback. Error:', err);
 
       try {
-        // no-cors: sends the request but response will be opaque; we can't read it
         await fetch(WEBAPP_URL, {
           method: 'POST',
           mode: 'no-cors',
@@ -111,8 +105,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
           cache: 'no-store'
         });
 
-        // If no network exception thrown, assume the request reached Apps Script
-        showMessage('Thank you! Your inquiry was sent (fallback). If you do not see a confirmation, please contact us on WhatsApp.', 'green');
+        showMessage(
+          'Thank you! Your inquiry was sent (fallback). If you do not see a confirmation, please contact us on WhatsApp.',
+          'green'
+        );
         form.reset();
       } catch (err2) {
         console.error('Fallback no-cors failed too:', err2);
@@ -124,11 +120,32 @@ document.getElementById('year').textContent = new Date().getFullYear();
     }
   });
 
-  // Optionally attach WhatsApp chat button behaviour if you want to open with prefill
+  // Optional WhatsApp chat button behaviour
   const waLink = document.getElementById('waChat');
   if (waLink) {
     waLink.addEventListener('click', (ev) => {
-      // default anchor will open anyway; keep this in case you want to add prefill logic later
+      // default behaviour is fine
     });
   }
+})();
+
+/* ===== Mobile Nav Toggle — appended safely below ===== */
+(function() {
+  const navToggle = document.getElementById('navToggle');
+  if (!navToggle) return;
+
+  navToggle.addEventListener('click', function() {
+    const isOpen = document.body.classList.toggle('mobile-nav-open');
+    this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // Close mobile nav when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!document.body.classList.contains('mobile-nav-open')) return;
+    const header = document.querySelector('.site-header .header-inner');
+    if (header && !header.contains(e.target)) {
+      document.body.classList.remove('mobile-nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  }, true);
 })();
