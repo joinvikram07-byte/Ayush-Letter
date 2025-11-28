@@ -5,7 +5,7 @@ const form = document.getElementById('leadForm');
 const msgEl = document.getElementById('msg');
 
 // Updated Google Apps Script Web App URL
-const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw_pZf0VgNVHafTEAFCcEa-NirOHjDlh_5WS8VTaWiAGC2ZXkUK-GTrga96xG9lDjKKJQ/exec";
+const WEBAPP_URL = "https://script.google.com/a/macros/medcaretrust.com/s/AKfycbwUTA_PxAXn_-4fwBlN8uE9uVcwqpqVnCoL2sRLY0qhHAPCVJJjQdabzNaTwBL7QU2vNA/exec";
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
