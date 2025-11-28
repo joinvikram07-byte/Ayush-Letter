@@ -1,3 +1,5 @@
+/* ==== style.css — full file (copy-paste this entirely) ==== */
+
 /* Simple responsive styling inspired by the screenshot */
 :root{
   --max-width:1100px;
@@ -15,6 +17,7 @@
 body{margin:0;background:var(--bg);color:#111;line-height:1.45}
 .container{max-width:var(--max-width);margin:0 auto;padding:28px}
 
+/* Hero / top */
 .hero{background:#fff;padding:30px 0}
 .hero-inner{display:flex;gap:30px;align-items:flex-start}
 .left{flex:1}
@@ -26,6 +29,7 @@ h1{font-size:40px;margin:0 0 12px 0;line-height:1.02}
 .icon-img{font-size:24px;background:#eef6ff;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
 .muted{color:var(--muted);font-weight:500}
 
+/* Form */
 .lead-form label{display:block;margin-bottom:12px;font-size:14px}
 .lead-form input[type="text"],
 .lead-form input[type="tel"],
@@ -43,6 +47,7 @@ h1{font-size:40px;margin:0 0 12px 0;line-height:1.02}
 .btn.whatsapp.large{padding:14px 36px;border-radius:12px}
 .msg{margin-top:12px;color:green;font-weight:600}
 
+/* Main content */
 .content{padding:40px 0}
 .services h2, .process h2, .documents h2{font-size:28px;text-align:center;margin-bottom:18px}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -61,3 +66,85 @@ h1{font-size:40px;margin:0 0 12px 0;line-height:1.02}
   .steps{flex-direction:column}
   .documents .doc-list{flex-direction:column}
 }
+
+/* === Header + Mobile Menu styles ===
+   Place these rules after your existing CSS (they are appended here).
+*/
+.site-header {
+  background: var(--card);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 14px 0;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+.brand h1 { margin: 0; font-size: 20px; line-height:1; }
+.brand .tagline { margin: 0; font-size: 12px; opacity: .8; }
+
+/* Desktop nav */
+.main-nav {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.main-nav a {
+  text-decoration: none;
+  color: inherit;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+.main-nav a:hover {
+  background: rgba(31,71,139,0.06);
+}
+
+/* Hamburger (hidden on desktop) */
+.nav-toggle { display: none; border: none; background: transparent; cursor: pointer; padding: 6px; }
+.hamburger-line { display: block; width: 22px; height: 2px; background: #222; margin: 4px 0; border-radius: 2px; }
+
+/* Footer nav styling */
+.footer-nav { margin-bottom: 8px; font-size: 14px; }
+
+/* Mobile responsive nav */
+@media (max-width: 820px) {
+  .main-nav { display: none; } /* hide desktop nav on small screens */
+  .nav-toggle { display: inline-flex; align-items:center; justify-content:center; }
+
+  /* When mobile menu is open we add .mobile-nav-open on the body */
+  body.mobile-nav-open .main-nav {
+    display: flex;
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    background: var(--card);
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    z-index: 50;
+  }
+
+  /* Make header layout slightly different on very small screens */
+  @media (max-width: 420px) {
+    .header-inner { padding: 0 12px; }
+    .brand h1 { font-size:18px; }
+    .brand .tagline { font-size:11px; }
+  }
+}
+
+/* small accessibility focus styles */
+a:focus, button:focus, input:focus {
+  outline: 3px solid rgba(31,71,139,0.12);
+  outline-offset: 2px;
+}
+
+/* End of file */
