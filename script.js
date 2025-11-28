@@ -1,139 +1,134 @@
-// script.js
+// script.js — cleaned & ready to paste
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const form = document.getElementById('leadForm');
-const msgEl = document.getElementById('msg');
+(() => {
+  const form = document.getElementById('leadForm');
+  const msgEl = document.getElementById('msg');
+  const submitBtn = document.getElementById('submitBtn');
 
-// Updated Google Apps Script Web App URL
-const WEBAPP_URL = "https://script.google.com/a/macros/medcaretrust.com/s/AKfycbwUTA_PxAXn_-4fwBlN8uE9uVcwqpqVnCoL2sRLY0qhHAPCVJJjQdabzNaTwBL7QU2vNA/exec";
+  // NEW Web App URL (you provided)
+  const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw22mcUfepc4dgRPL3WDH5mFq-2AHl8J4OSTmpPH-JyUOg2tBuldeFcKFVf7Ye4oPkl/exec";
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+  // Support WhatsApp number (no +)
+  const SUPPORT_WA = "919266023555";
 
-  const fullName = document.getElementById('fullName').value.trim();
-  const countryCode = document.getElementById('countryCode').value;
-  const whatsapp = document.getElementById('whatsapp').value.trim();
-  const hospital = document.getElementById('hospital').value;
-  const city = document.getElementById('city').value;
-  const secretKey = document.getElementById('secretKey').value;
-
-  if(!fullName || !whatsapp){
-    msgEl.textContent = "Please fill your name and WhatsApp number.";
-    return;
+  // Helper: show status message
+  function showMessage(text, color = '') {
+    msgEl.style.color = color;
+    msgEl.textContent = text;
   }
 
-  const payload = {
-    secret: secretKey,
-    fullName,
-    countryCode,
-    whatsapp,
-    hospital,
-    city,
-    source: window.location.hostname,
-    timestamp: new Date().toISOString()
-  };
+  // Helper: open whatsapp chat in new tab with optional prefilled text
+  function openWhatsApp(prefillText = '') {
+    const text = prefillText ? encodeURIComponent(prefillText) : '';
+    const waUrl = `https://wa.me/${SUPPORT_WA}${text ? '?text=' + text : ''}`;
+    window.open(waUrl, '_blank');
+  }
 
-  msgEl.textContent = "Sending...";
-
-  try {
-    const resp = await fetch(WEBAPP_URL, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-    const res = await resp.json();
-    if(res && res.status === 'success') {
-      msgEl.style.color = 'green';
-      msgEl.textContent = "Thank you! We have received your inquiry. Our team will contact you shortly.";
-      form.reset();
-    } else {
-      msgEl.style.color = 'red';
-      msgEl.textContent = "There was an error submitting your form. Try again or contact us on WhatsApp.";
-// Replace with your deployed Google Apps Script web app URL
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_pZf0VgNVHafTEAFCcEa-NirOHjDlh_5WS8VTaWiAGC2ZXkUK-GTrga96xG9lDjKKJQ/exec";
-
-// Support/WhatsApp number to open after successful submit (no +, country code included)
-const SUPPORT_WA = "919266023555";
-
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("leadForm");
-  const msg = document.createElement("div");
-  msg.id = "formMessage";
-  msg.style.marginTop = "12px";
-  form.appendChild(msg);
-
-  form.addEventListener("submit", async (e) => {
+  // Actual submit handler
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    msg.textContent = "";
-    msg.style.color = "";
+    showMessage('', '');
 
-    const data = {
-      name: form.name.value.trim(),
-      country: form.country.value,
-      whatsapp: form.whatsapp.value.trim(),
-      hospital: form.hospital.value,
-      city: form.city.value,
-      secret: "SHer@1307" // must match Apps Script secret
-    };
+    const fullName = (document.getElementById('fullName') || {}).value?.trim() || '';
+    const countryCode = (document.getElementById('countryCode') || {}).value || '';
+    const whatsapp = (document.getElementById('whatsapp') || {}).value?.trim() || '';
+    const hospital = (document.getElementById('hospital') || {}).value || '';
+    const city = (document.getElementById('city') || {}).value || '';
+    const secretKey = (document.getElementById('secretKey') || {}).value || '';
 
     // Basic validation
-    if (!data.name || !data.whatsapp) {
-      msg.style.color = "red";
-      msg.textContent = "Please fill in required fields.";
+    if (!fullName || !whatsapp) {
+      showMessage('Please fill your name and WhatsApp number.', 'red');
       return;
     }
 
-    // Show loading
-    const submitBtn = form.querySelector("button[type='submit']");
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
+    const payload = {
+      secret: secretKey,
+      fullName,
+      countryCode,
+      whatsapp,
+      hospital,
+      city,
+      source: window.location.hostname || 'website',
+      timestamp: new Date().toISOString()
+    };
 
+    // UI: disable button while sending
+    submitBtn.disabled = true;
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    showMessage('Sending...', '');
+
+    // Try normal CORS request first (so we can read JSON response)
     try {
-      const res = await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+      const resp = await fetch(WEBAPP_URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        cache: 'no-store'
       });
 
-      if (!res.ok) throw new Error("Network response was not OK");
+      // If server returned a non-JSON or blocked by CORS, resp.ok may be false or json() may throw
+      if (!resp.ok) {
+        // Try to parse JSON error if available; else throw to go to fallback
+        let text = await resp.text().catch(() => '');
+        try {
+          const j = text ? JSON.parse(text) : null;
+          console.warn('Server responded not ok:', j || text);
+        } catch (err) {
+          console.warn('Non-JSON response or empty body on non-ok status.');
+        }
+        throw new Error('Non-OK response from server');
+      }
 
-      const json = await res.json();
+      // parse JSON response
+      const json = await resp.json().catch(() => null);
 
-      if (json && json.result === "success") {
-        msg.style.color = "green";
-        msg.textContent = "Thank you — your enquiry was submitted.";
-
-        // Open WhatsApp in new tab with prefilled support message
-        const waText = encodeURIComponent(`Hello, I would like help with an AYUSH Letter. Name: ${data.name}; City: ${data.city}; Hospital: ${data.hospital}`);
-        const waUrl = `https://wa.me/${SUPPORT_WA}?text=${waText}`;
-        window.open(waUrl, "_blank");
-
+      if (json && (json.status === 'success' || json.result === 'success')) {
+        showMessage('Thank you! We have received your inquiry. Our team will contact you shortly.', 'green');
         form.reset();
+        // Optionally open WhatsApp after success (comment out if not required)
+        // openWhatsApp(`Hello, I would like help with an AYUSH Letter. Name: ${fullName}; City: ${city}; Hospital: ${hospital}`);
       } else {
-        // Apps Script returned failure or unknown response
-        msg.style.color = "red";
-        msg.textContent = "Submission failed. Please try again or contact us on WhatsApp.";
+        // server responded but did not explicitly confirm success
+        console.warn('Server response (no success flag):', json);
+        showMessage('Submission received but server did not confirm success. Check sheet & email.', 'orange');
+        form.reset();
       }
     } catch (err) {
-      console.error(err);
-      msg.style.color = "red";
-      msg.textContent = "Network error. Please try again or contact us on WhatsApp.";
+      // Most common reason: CORS/preflight blocked the request — attempt no-cors fallback
+      console.warn('Primary POST failed, attempting no-cors fallback. Error:', err);
+
+      try {
+        // no-cors: sends the request but response will be opaque; we can't read it
+        await fetch(WEBAPP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          cache: 'no-store'
+        });
+
+        // If no network exception thrown, assume the request reached Apps Script
+        showMessage('Thank you! Your inquiry was sent (fallback). If you do not see a confirmation, please contact us on WhatsApp.', 'green');
+        form.reset();
+      } catch (err2) {
+        console.error('Fallback no-cors failed too:', err2);
+        showMessage('Network error. Please try again or contact us on WhatsApp.', 'red');
+      }
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = "Submit Inquiry";
-}
-  } catch (err) {
-    console.error(err);
-    msgEl.style.color = 'red';
-    msgEl.textContent = "Network error. Please try again or contact us on WhatsApp.";
-  }
+      submitBtn.textContent = originalBtnText;
+    }
   });
-});
 
-function openWhatsApp() {
-  const wa = "919266023555";
-  const text = encodeURIComponent("Hello, I would like help with an AYUSH Letter");
-  window.open(`https://wa.me/${wa}?text=${text}`, "_blank");
-}
+  // Optionally attach WhatsApp chat button behaviour if you want to open with prefill
+  const waLink = document.getElementById('waChat');
+  if (waLink) {
+    waLink.addEventListener('click', (ev) => {
+      // default anchor will open anyway; keep this in case you want to add prefill logic later
+    });
+  }
+})();
