@@ -1,33 +1,30 @@
-// script.js — cleaned, updated with mobile menu
-
-// Set footer year
-document.getElementById('year').textContent = new Date().getFullYear();
+const yearEl = document.getElementById('year');
+if (yearEl) {
+  yearEl.textContent = new Date().getFullYear();
+}
 
 (() => {
   const form = document.getElementById('leadForm');
   const msgEl = document.getElementById('msg');
   const submitBtn = document.getElementById('submitBtn');
 
-  // NEW Web App URL (you provided)
   const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw22mcUfepc4dgRPL3WDH5mFq-2AHl8J4OSTmpPH-JyUOg2tBuldeFcKFVf7Ye4oPkl/exec";
-
-  // Support WhatsApp number (no +)
   const SUPPORT_WA = "919266023555";
 
-  // Helper: show status message
   function showMessage(text, color = '') {
+    if (!msgEl) return;
     msgEl.style.color = color;
     msgEl.textContent = text;
   }
 
-  // Helper: open whatsapp chat (not used by default)
+  if (!form) return;
+
   function openWhatsApp(prefillText = '') {
     const text = prefillText ? encodeURIComponent(prefillText) : '';
     const waUrl = `https://wa.me/${SUPPORT_WA}${text ? '?text=' + text : ''}`;
     window.open(waUrl, '_blank');
   }
 
-  // Submit handler
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     showMessage('', '');
@@ -39,7 +36,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
     const city = (document.getElementById('city') || {}).value || '';
     const secretKey = (document.getElementById('secretKey') || {}).value || '';
 
-    // Basic validation
     if (!fullName || !whatsapp) {
       showMessage('Please fill your name and WhatsApp number.', 'red');
       return;
@@ -56,13 +52,13 @@ document.getElementById('year').textContent = new Date().getFullYear();
       timestamp: new Date().toISOString()
     };
 
-    // UI changes while sending
-    submitBtn.disabled = true;
-    const originalBtnText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+    }
+    const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
+    if (submitBtn) submitBtn.textContent = 'Sending...';
     showMessage('Sending...', '');
 
-    // Try normal CORS first
     try {
       const resp = await fetch(WEBAPP_URL, {
         method: 'POST',
@@ -105,31 +101,26 @@ document.getElementById('year').textContent = new Date().getFullYear();
           cache: 'no-store'
         });
 
-        showMessage(
-          'Thank you! Your inquiry was sent (fallback). If you do not see a confirmation, please contact us on WhatsApp.',
-          'green'
-        );
+        showMessage('Thank you! Your inquiry was sent (fallback). If you do not see a confirmation, please contact us on WhatsApp.', 'green');
         form.reset();
       } catch (err2) {
         console.error('Fallback no-cors failed too:', err2);
         showMessage('Network error. Please try again or contact us on WhatsApp.', 'red');
       }
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalBtnText;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
     }
   });
 
-  // Optional WhatsApp chat button behaviour
   const waLink = document.getElementById('waChat');
   if (waLink) {
-    waLink.addEventListener('click', (ev) => {
-      // default behaviour is fine
-    });
+    waLink.addEventListener('click', (ev) => {});
   }
 })();
 
-/* ===== Mobile Nav Toggle — appended safely below ===== */
 (function() {
   const navToggle = document.getElementById('navToggle');
   if (!navToggle) return;
@@ -139,7 +130,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
     this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 
-  // Close mobile nav when clicking outside
   document.addEventListener('click', function(e) {
     if (!document.body.classList.contains('mobile-nav-open')) return;
     const header = document.querySelector('.site-header .header-inner');
