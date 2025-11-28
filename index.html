@@ -9,10 +9,8 @@
 </head>
 <body>
 
-  <!-- ===== Top navigation (desktop + mobile) ===== -->
   <header class="site-header">
     <div class="container header-inner">
-
       <a class="brand" href="index.html" aria-label="AyushLetter home">
         <h1>AyushLetter.com</h1>
         <span class="tagline">AYUSH Medical Visa Invitation Letters</span>
@@ -26,45 +24,44 @@
         <a href="contact.html">Contact</a>
       </nav>
 
-      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
+      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" type="button">
+        <span class="hamburger-line" aria-hidden="true"></span>
+        <span class="hamburger-line" aria-hidden="true"></span>
+        <span class="hamburger-line" aria-hidden="true"></span>
       </button>
     </div>
   </header>
 
-  <!-- ===== Hero / Main lead area (full content) ===== -->
   <header class="hero">
     <div class="container hero-inner">
       <div class="left">
         <h1>Get Your AYUSH Medical Visa Invitation Letter Faster &amp; Easier</h1>
         <p class="lead">A smooth, hassle-free AYUSH visa documentation process handled by trusted experts.</p>
 
-        <div class="icons-row">
-          <div class="icon">
+        <div class="icons-row" role="list">
+          <div class="icon" role="listitem">
             <div class="icon-img">⚡</div>
-            <strong>Fast<br/>Processing</strong>
+            <strong>Fast Processing</strong>
           </div>
-          <div class="icon">
+          <div class="icon" role="listitem">
             <div class="icon-img">✔️</div>
-            <strong>100%<br/>Accurate<br/>Documentation</strong>
+            <strong>100% Accurate<br/>Documentation</strong>
           </div>
-          <div class="icon">
+          <div class="icon" role="listitem">
             <div class="icon-img">🏥</div>
-            <strong>Doctor<br/>Appointment Letter</strong>
+            <strong>Doctor Appointment<br/>Letter</strong>
           </div>
-          <div class="icon">
+          <div class="icon" role="listitem">
             <div class="icon-img">👤</div>
-            <strong>Personal<br/>Assistance</strong>
+            <strong>Personal Assistance</strong>
           </div>
         </div>
       </div>
 
-      <aside class="form-card">
-        <h3>Submit your details – <span class="muted">our team will contact you within minutes.</span></h3>
+      <aside class="form-card" aria-labelledby="lead-title">
+        <h3 id="lead-title">Submit your details – <span class="muted">our team will contact you within minutes.</span></h3>
 
-        <form id="leadForm" class="lead-form">
+        <form id="leadForm" class="lead-form" autocomplete="on">
           <label>Enter Your Full Name
             <input type="text" name="fullName" id="fullName" placeholder="Enter your full name" required>
           </label>
@@ -72,7 +69,6 @@
           <div class="row">
             <label class="small">Select Country Code
               <select id="countryCode" name="countryCode" required>
-                <!-- Country options (full list) -->
                 <option value="+93">Afghanistan (+93)</option>
                 <option value="+355">Albania (+355)</option>
                 <option value="+213">Algeria (+213)</option>
@@ -87,7 +83,6 @@
                 <option value="+994">Azerbaijan (+994)</option>
                 <option value="+880">Bangladesh (+880)</option>
                 <option value="+973">Bahrain (+973)</option>
-                <option value="+880">Bangladesh (+880)</option>
                 <option value="+375">Belarus (+375)</option>
                 <option value="+32">Belgium (+32)</option>
                 <option value="+501">Belize (+501)</option>
@@ -201,9 +196,9 @@
                 <option value="+34">Spain (+34)</option>
                 <option value="+94">Sri Lanka (+94)</option>
                 <option value="+211">South Sudan (+211)</option>
-                <option value="+1949">St. Kitts &amp; Nevis (+1-649)</option>
-                <option value="+1">St. Lucia (+1-758)</option>
-                <option value="+1721">St. Maarten (+1-721)</option>
+                <option value="+1-649">St. Kitts &amp; Nevis (+1-649)</option>
+                <option value="+1-758">St. Lucia (+1-758)</option>
+                <option value="+1-721">St. Maarten (+1-721)</option>
                 <option value="+249">Sudan (+249)</option>
                 <option value="+597">Suriname (+597)</option>
                 <option value="+268">Swaziland/Eswatini (+268)</option>
@@ -314,7 +309,6 @@
     </div>
   </header>
 
-  <!-- ===== Main content sections (unchanged structure) ===== -->
   <main class="content container">
     <section class="services">
       <h2>Our Top Services</h2>
@@ -367,18 +361,14 @@
     </div>
   </main>
 
-  <!-- ===== Footer (with About link) ===== -->
   <footer class="site-footer">
     <div class="container">
-
       <nav class="footer-nav">
         <a href="about-us.html">About Us</a> |
         <a href="privacy.html">Privacy & Cookies</a> |
         <a href="terms.html">Terms of Use</a>
       </nav>
-
       <p>© <span id="year"></span> AyushLetter.com — All rights reserved.</p>
-
     </div>
   </footer>
 
