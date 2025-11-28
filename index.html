@@ -3,11 +3,38 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ayush Letter</title>
+  <title>AyushLetter.com — AYUSH Medical Visa Invitation Letter</title>
   <link rel="stylesheet" href="style.css" />
   <meta name="description" content="Get your AYUSH medical visa invitation letter faster & easier.">
 </head>
 <body>
+
+  <!-- ===== Top navigation (desktop + mobile) ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a class="brand" href="index.html" aria-label="AyushLetter home">
+        <h1>AyushLetter.com</h1>
+        <span class="tagline">AYUSH Medical Visa Invitation Letters</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about-us.html">About Us</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== Hero / Main lead area (full content) ===== -->
   <header class="hero">
     <div class="container hero-inner">
       <div class="left">
@@ -45,8 +72,7 @@
           <div class="row">
             <label class="small">Select Country Code
               <select id="countryCode" name="countryCode" required>
-                <!-- Country options inserted in HTML for offline use (150 entries) -->
-                <!-- START country list -->
+                <!-- Country options (full list) -->
                 <option value="+93">Afghanistan (+93)</option>
                 <option value="+355">Albania (+355)</option>
                 <option value="+213">Algeria (+213)</option>
@@ -142,8 +168,6 @@
                 <option value="+52">Mexico (+52)</option>
                 <option value="+222">Mauritania (+222)</option>
                 <option value="+230">Mauritius (+230)</option>
-                <option value="+222">Mauritania (+222)</option>
-                <option value="+52">Mexico (+52)</option>
                 <option value="+373">Moldova (+373)</option>
                 <option value="+212">Morocco (+212)</option>
                 <option value="+258">Mozambique (+258)</option>
@@ -207,7 +231,6 @@
                 <option value="+681">Wallis &amp; Futuna (+681)</option>
                 <option value="+260">Zambia (+260)</option>
                 <option value="+263">Zimbabwe (+263)</option>
-                <!-- END country list -->
               </select>
             </label>
 
@@ -226,18 +249,18 @@
               <option>Artemis Hospital</option>
               <option>Asian Heart Institute</option>
               <option>Aster Medcity</option>
-              <option>Batra Hospital & Medical Research Centre</option>
+              <option>Batra Hospital &amp; Medical Research Centre</option>
               <option>BLK-Max Super Speciality Hospital</option>
               <option>CARE Hospitals</option>
               <option>Christian Medical College (CMC)</option>
               <option>Continental Hospitals</option>
-              <option>Dr. Rela Institute & Medical Centre</option>
-              <option>Eternal Heart Care Centre & Research Institute</option>
+              <option>Dr. Rela Institute &amp; Medical Centre</option>
+              <option>Eternal Heart Care Centre &amp; Research Institute</option>
               <option>Fortis Healthcare</option>
               <option>Gleneagles Global Health City</option>
               <option>HCG Cancer Centre</option>
               <option>Indraprastha Apollo Hospitals</option>
-              <option>Jaslok Hospital & Research Centre</option>
+              <option>Jaslok Hospital &amp; Research Centre</option>
               <option>Jaypee Hospital</option>
               <option>KIMS Hospitals</option>
               <option>Kokilaben Dhirubhai Ambani Hospital</option>
@@ -291,6 +314,7 @@
     </div>
   </header>
 
+  <!-- ===== Main content sections (unchanged structure) ===== -->
   <main class="content container">
     <section class="services">
       <h2>Our Top Services</h2>
@@ -332,7 +356,7 @@
       <h2>Documents You Need</h2>
       <div class="doc-list">
         <div><strong>✔ Passport Copy</strong><p>Valid for at least six months.</p></div>
-        <div><strong>✔ Medical Reports</strong><p>Your diagnosis prescriptions or previous treatment history.</p></div>
+        <div><strong>✔ Medical Reports</strong><p>Your diagnosis, prescriptions or previous treatment history.</p></div>
         <div><strong>✔ Patient Details Form</strong><p>Basic personal information and your treatment request.</p></div>
       </div>
     </section>
@@ -343,17 +367,21 @@
     </div>
   </main>
 
+  <!-- ===== Footer (with About link) ===== -->
   <footer class="site-footer">
-  <div class="container">
+    <div class="container">
 
-    <nav class="footer-nav">
-      <a href="about-us.html">About Us</a> |
-      <a href="privacy.html">Privacy & Cookies</a> |
-      <a href="terms.html">Terms of Use</a>
-    </nav>
+      <nav class="footer-nav">
+        <a href="about-us.html">About Us</a> |
+        <a href="privacy.html">Privacy & Cookies</a> |
+        <a href="terms.html">Terms of Use</a>
+      </nav>
 
-    <p>© <span id="year"></span> AyushLetter.com — All rights reserved.</p>
+      <p>© <span id="year"></span> AyushLetter.com — All rights reserved.</p>
 
-  </div>
-</footer>
+    </div>
+  </footer>
 
+  <script src="script.js"></script>
+</body>
+</html>
