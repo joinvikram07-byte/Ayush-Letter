@@ -1,5 +1,5 @@
 // Replace with your deployed Google Apps Script web app URL
-const APPS_SCRIPT_URL = "https://script.google.com/a/macros/medcaretrust.com/s/AKfycbw5Qq6fhMXQx5UxriDyR_zTSlWvG7vjENblzLEW8FzIFU1cXgbsQRgDHgW3kVzisS56Ew/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/a/macros/medcaretrust.com/s/AKfycbypivV1lFI-7vlwsYr3Caa7AXTYYzFF4WIuTB95Ymkb-xIFQ-3OOgKE3EseESuhy6xaAg/exec";
 
 // Support/WhatsApp number to open after successful submit (no +, country code included)
 const SUPPORT_WA = "919266023555";
