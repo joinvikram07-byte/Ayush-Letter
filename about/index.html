@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us — AyushLetter.com</title>
+  <link rel="stylesheet" href="/style.css" />
+  <meta name="description" content="About AyushLetter — we simplify AYUSH medical visa invitation letters and support patients.">
+</head>
+<body>
+<header class="hero" aria-label="Site header">
+  <div class="container hero-inner" style="gap:18px;align-items:center;">
+    <div class="left" style="flex:1">
+      <a href="/" style="text-decoration:none;color:inherit;">
+        <h1 style="font-size:26px;margin:0 0 6px 0;">AyushLetter.com</h1>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a> |
+        <a href="/about/">About</a> |
+        <a href="/privacy/">Privacy & Cookies</a> |
+        <a href="/terms/">Terms of Use</a> |
+        <a href="/contact/">Contact</a>
+      </nav>
+    </div>
+
+    <aside class="form-card" style="width:auto;min-width:300px">
+      <h3>Quick enquiry</h3>
+      <form id="leadForm" class="lead-form" action="#" onsubmit="return false;">
+        <label>Full Name
+          <input type="text" name="fullName" id="fullName" placeholder="Enter your full name" required>
+        </label>
+        <div class="row">
+          <label class="small">Country Code
+            <select id="countryCode" name="countryCode" required>
+              <option value="+91" selected>India (+91)</option>
+              <option value="+1">United States (+1)</option>
+              <option value="+44">United Kingdom (+44)</option>
+              <option value="+61">Australia (+61)</option>
+            </select>
+          </label>
+
+          <label class="small">WhatsApp
+            <input type="tel" name="whatsapp" id="whatsapp" placeholder="Enter your WhatsApp number" required>
+          </label>
+        </div>
+
+        <div class="btns">
+          <button type="submit" id="submitBtn" class="btn primary">Submit Inquiry</button>
+          <a id="waChat" class="btn whatsapp" href="https://wa.me/919266023555" target="_blank">Chat on WhatsApp</a>
+        </div>
+        <input type="hidden" id="secretKey" name="secretKey" value="SHer@1307">
+      </form>
+      <div id="msg" class="msg" aria-live="polite"></div>
+    </aside>
+  </div>
+</header>
+
+<main class="content container" style="padding-top:24px;">
+  <article class="card" style="background:#fff;padding:28px;border-radius:10px;box-shadow:var(--shadow)">
+    <h2>About AyushLetter.com</h2>
+    <p>AyushLetter.com is built with one simple purpose: to make the AYUSH Medical Visa process easy, fast, and stress-free for patients traveling to India for treatment. Every year, thousands of people struggle with documentation, invitation letters, hospital coordination, and communication barriers. We created this platform to fix all of that.</p>
+    <p>Our team helps patients from around the world obtain their AYUSH Medical Visa Invitation Letter in the correct government-accepted format. From the moment a patient shares their medical reports, we coordinate with AYUSH-recognized hospitals, arrange doctor appointments, and ensure all documents meet the required standards.</p>
+    <h3>Our Mission</h3>
+    <p>To simplify the AYUSH medical visa process for global patients and provide dependable support at every step of their treatment journey in India.</p>
+    <h3>Contact Us</h3>
+    <address>
+      AyushLetter.com<br/>
+      Vaishali, Ghaziabad<br/>
+      Delhi NCR, India<br/>
+      Mobile: +91 92660 23555<br/>
+      Email: <a href="mailto:hello@medcaretravels.com">hello@medcaretravels.com</a>
+    </address>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© <span id="year"></span> AyushLetter.com — All rights reserved.</p>
+  </div>
+</footer>
+<script>
+document.getElementById('year')?.appendChild(document.createTextNode(new Date().getFullYear()));
+</script>
+<script src="/script.js"></script>
+</body>
+</html>
